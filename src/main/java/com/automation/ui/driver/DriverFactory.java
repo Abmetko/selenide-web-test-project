@@ -1,5 +1,6 @@
 package com.automation.ui.driver;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.SneakyThrows;
@@ -21,6 +22,7 @@ public class DriverFactory {
         WebDriverManager.chromedriver().setup();
         driver.set(configureDriver());
         WebDriverRunner.setWebDriver(driver.get());//to pass WebDriver to Selenide
+        Configuration.reportsFolder = "target/test-result/reports";
     }
 
     @SneakyThrows
@@ -29,7 +31,7 @@ public class DriverFactory {
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("profile.default_content_setting_values.notifications", 1);
-//        prefs.put("intl.accept_languages", "ru,ru_RU");
+        prefs.put("intl.accept_languages", "ru,ru_RU");
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-infobars");
         options.setExperimentalOption("prefs", prefs);
