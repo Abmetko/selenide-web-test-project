@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 //mvn clean test -Dbrowser.type=chrome
-@SuppressWarnings("deprecation")
 public class DriverFactory {
 
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
@@ -24,17 +23,11 @@ public class DriverFactory {
     in case if we use Selenide(it is already implemented out of the box there)
      */
     public static void initDriver() {
-//        switch (System.getProperty("browser.type")) {
-//            case "firefox":
-//                WebDriverManager.firefoxdriver().setup();
-//                break;
-//            case "chrome":
-//                WebDriverManager.chromedriver().setup();
-//                break;
-//            default:
-//                throw new IllegalArgumentException();
-//        }
-        WebDriverManager.chromedriver().setup();
+        switch (System.getProperty("browser.type")) {
+            case "firefox" -> WebDriverManager.firefoxdriver().setup();
+            case "chrome" -> WebDriverManager.chromedriver().setup();
+            default -> throw new IllegalArgumentException();
+        }
         driver.set(configureDriver());
         WebDriverRunner.setWebDriver(driver.get());//to pass WebDriver to Selenide
         Configuration.reportsFolder = "target/test-result/reports";
@@ -70,7 +63,7 @@ public class DriverFactory {
         options.addArguments("--disable-infobars");
         options.setExperimentalOption("prefs", prefs);
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-        options.setHeadless(true);
+//        options.setHeadless(false);
         options.addArguments("–-no-sandbox");
         options.addArguments("--incognito");
         options.addArguments("--start-maximized");
