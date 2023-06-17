@@ -70,7 +70,7 @@ public class DriverFactory {
         options.addArguments("--disable-infobars");
         options.setExperimentalOption("prefs", prefs);
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-        options.setHeadless(false);
+        options.setHeadless(true);
         options.addArguments("–-no-sandbox");
         options.addArguments("--incognito");
         options.addArguments("--start-maximized");
