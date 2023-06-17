@@ -12,21 +12,29 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 //mvn clean test -Dbrowser.type=chrome
 @SuppressWarnings("deprecation")
 public class DriverFactory {
 
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+
     /*
     it is not necessary to put and store WebDriver in ThreadLocal,
     in case if we use Selenide(it is already implemented out of the box there)
      */
     public static void initDriver() {
-        switch (System.getProperty("browser.type")) {
-            case "firefox" -> WebDriverManager.firefoxdriver().setup();
-            case "chrome" -> WebDriverManager.chromedriver().setup();
-            default -> throw new IllegalArgumentException();
-        }
+//        switch (System.getProperty("browser.type")) {
+//            case "firefox":
+//                WebDriverManager.firefoxdriver().setup();
+//                break;
+//            case "chrome":
+//                WebDriverManager.chromedriver().setup();
+//                break;
+//            default:
+//                throw new IllegalArgumentException();
+//        }
+        WebDriverManager.chromedriver().setup();
         driver.set(configureDriver());
         WebDriverRunner.setWebDriver(driver.get());//to pass WebDriver to Selenide
         Configuration.reportsFolder = "target/test-result/reports";
