@@ -18,8 +18,7 @@ import java.util.Map;
 //mvn clean test -Dbrowser.type=chrome
 public class DriverFactory {
 
-    private static final ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<RemoteWebDriver>();
-
+    private static final ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     /*
     it is not necessary to put and store WebDriver in ThreadLocal,
     in case if we use Selenide(it is already implemented out of the box there)
@@ -54,6 +53,7 @@ public class DriverFactory {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions options = new FirefoxOptions();
                 options.setCapability("selenoid:options", map);
+                options.addPreference("intl.accept_languages", "en-EN");
                 remoteWebDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
             }
             case "chrome" -> {
@@ -82,7 +82,6 @@ public class DriverFactory {
 
     public static void closeDriver() {
         driver.get().close();
-        driver.get().quit();
         driver.remove();
     }
 }
