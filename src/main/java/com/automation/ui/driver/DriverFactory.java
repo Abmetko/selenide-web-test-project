@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+//mvn clean test -Dbrowser.type=chrome
 @SuppressWarnings("deprecation")
 public class DriverFactory {
 
