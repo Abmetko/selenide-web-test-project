@@ -4,7 +4,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.SneakyThrows;
-import lombok.Synchronized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -23,7 +22,6 @@ public class DriverFactory {
     it is not necessary to put and store WebDriver in ThreadLocal,
     in case if we use Selenide(it is already implemented out of the box there)
      */
-    @Synchronized
     public static void initDriver() {
         driver.set(configureDriver());
         //to pass WebDriver to Selenide
