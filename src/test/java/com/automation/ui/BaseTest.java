@@ -18,7 +18,7 @@ public abstract class BaseTest {
     }
 
     @AfterAll
-    public void tearDown(){
+    public void tearDown() {
         DriverFactory.closeDriver();
     }
 }

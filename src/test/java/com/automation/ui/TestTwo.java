@@ -2,6 +2,7 @@ package com.automation.ui;
 
 import com.automation.ui.components.search.SearchBar;
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -27,5 +28,6 @@ public class TestTwo extends BaseTest {
                 .inputDataInSearchField("Minsk")
                 .sendKeys(Keys.ENTER);
         $("div#center_col").shouldBe(Condition.visible, Duration.ofSeconds(30));
+        Selenide.sleep(50000);
     }
 }

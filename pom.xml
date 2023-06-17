@@ -8,6 +8,7 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
+        <browser.type>chrome</browser.type>
     </properties>
     <name>selenide-web-test-project</name>
     <url>http://maven.apache.org</url>
@@ -60,6 +61,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0</version>
+                <configuration>
+                    <properties>
+                        <runType>${browser.type}</runType>
+                    </properties>
+                </configuration>
             </plugin>
         </plugins>
     </build>
