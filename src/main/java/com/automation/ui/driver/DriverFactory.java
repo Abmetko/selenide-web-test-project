@@ -18,6 +18,7 @@ import java.util.Map;
 public class DriverFactory {
 
     private static final ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
+
     /*
     it is not necessary to put and store WebDriver in ThreadLocal,
     in case if we use Selenide(it is already implemented out of the box there)
@@ -45,6 +46,10 @@ public class DriverFactory {
             }});
             put("enableVNC", true);
         }};
+
+        if (System.getProperty("browser.type") == null) {
+            System.setProperty("browser.type", "chrome");
+        }
 
         switch (System.getProperty("browser.type")) {
             case "firefox" -> {

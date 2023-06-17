@@ -63,7 +63,7 @@
                 <version>3.0.0</version>
                 <configuration>
                     <properties>
-                        <runType>${browser.type}</runType>
+                        <browser.type>${browser.type}</browser.type>
                     </properties>
                 </configuration>
             </plugin>
