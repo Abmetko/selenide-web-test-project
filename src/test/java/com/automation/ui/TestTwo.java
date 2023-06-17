@@ -28,6 +28,6 @@ public class TestTwo extends BaseTest {
                 .inputDataInSearchField("Minsk")
                 .sendKeys(Keys.ENTER);
         $("div#center_col").shouldBe(Condition.visible, Duration.ofSeconds(30));
-        Selenide.sleep(50000);
+        Selenide.sleep(5000);
     }
 }

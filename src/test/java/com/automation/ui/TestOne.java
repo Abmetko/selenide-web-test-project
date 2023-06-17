@@ -21,6 +21,6 @@ public class TestOne extends BaseTest {
         $("h1.fontHeadlineLarge")
                 .shouldBe(Condition.visible, Duration.ofSeconds(30))
                 .shouldHave(Condition.text(TEXT));
-        Selenide.sleep(50000);
+        Selenide.sleep(5000);
     }
 }

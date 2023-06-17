@@ -21,7 +21,6 @@ public class DriverFactory {
     it is not necessary to put and store WebDriver in ThreadLocal,
     in case if we use Selenide(it is already implemented out of the box there)
      */
-
     public static void initDriver() {
         switch (System.getProperty("browser.type")) {
             case "firefox" -> WebDriverManager.firefoxdriver().setup();
