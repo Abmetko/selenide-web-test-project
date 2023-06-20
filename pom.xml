@@ -8,7 +8,6 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <browser.type>chrome</browser.type>
     </properties>
     <name>selenide-web-test-project</name>
     <url>http://maven.apache.org</url>
@@ -25,12 +24,6 @@
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
             <version>6.15.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.10.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
@@ -63,7 +56,7 @@
                 <version>3.0.0</version>
                 <configuration>
                     <properties>
-                        <browser.type>${browser.type}</browser.type>
+                        <browser.type>chrome</browser.type>
                     </properties>
                 </configuration>
             </plugin>

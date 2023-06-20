@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//mvn clean test -Dbrowser.type=chrome
+
 public class DriverFactory {
 
     private static final ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
