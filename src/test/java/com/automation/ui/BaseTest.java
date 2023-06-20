@@ -1,11 +1,13 @@
 package com.automation.ui;
 
 import com.automation.ui.driver.DriverFactory;
-import org.junit.jupiter.api.AfterAll;
+import com.automation.ui.extensions.LocalWebDriverExtension;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 
+@ExtendWith(LocalWebDriverExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseTest {
 
@@ -13,12 +15,6 @@ public abstract class BaseTest {
 
     @BeforeAll
     public void setUp() {
-        DriverFactory.initDriver();
         driver = DriverFactory.getDriver();
-    }
-
-    @AfterAll
-    public void tearDown() {
-        DriverFactory.closeDriver();
     }
 }

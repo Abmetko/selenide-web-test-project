@@ -17,15 +17,16 @@ import java.util.Map;
 
 public class DriverFactory {
 
+    private static final String URL = "http://localhost:4444/wd/hub";
     private static final ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 
     /*
-    it is not necessary to put and store WebDriver in ThreadLocal,
+    It is not necessary to put and store WebDriver in ThreadLocal,
     in case if we use Selenide(it is already implemented out of the box there)
      */
     public static void initDriver() {
         driver.set(configureDriver());
-        //to pass WebDriver to Selenide
+        //passing WebDriver to Selenide
         WebDriverRunner.setWebDriver(driver.get());
         Configuration.reportsFolder = "target/test-result/reports";
     }
@@ -47,6 +48,7 @@ public class DriverFactory {
             put("enableVNC", true);
         }};
 
+        //need to be set in configuration class
         if (System.getProperty("browser.type") == null) {
             System.setProperty("browser.type", "chrome");
         }
@@ -57,7 +59,7 @@ public class DriverFactory {
                 FirefoxOptions options = new FirefoxOptions();
                 options.setCapability("selenoid:options", map);
                 options.addPreference("intl.accept_languages", "en-EN");
-                remoteWebDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+                remoteWebDriver = new RemoteWebDriver(new URL(URL), options);
             }
             case "chrome" -> {
                 WebDriverManager.chromedriver().setup();
@@ -72,7 +74,7 @@ public class DriverFactory {
                 options.addArguments("–-no-sandbox");
                 options.addArguments("--incognito");
                 options.addArguments("--start-maximized");
-                remoteWebDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+                remoteWebDriver = new RemoteWebDriver(new URL(URL), options);
             }
             default -> throw new IllegalArgumentException("Unknown browser");
         }
