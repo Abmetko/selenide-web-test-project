@@ -2,10 +2,10 @@ package com.automation.ui;
 
 import com.automation.ui.components.search.SearchBar;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 
@@ -16,7 +16,7 @@ public class TestTwo extends BaseTest {
 
     SearchBar searchBar;
 
-    @BeforeAll
+    @BeforeClass
     void beforeAll() {
         open("https://www.google.com/");
         searchBar = new SearchBar();
@@ -28,6 +28,6 @@ public class TestTwo extends BaseTest {
                 .inputDataInSearchField("Minsk")
                 .sendKeys(Keys.ENTER);
         $("div#center_col").shouldBe(Condition.visible, Duration.ofSeconds(30));
-        Selenide.sleep(5000);
+        searchBar.waitUntil(ExpectedConditions.titleIs("Minsk - Google Search"), "Unexpectedly, title has incorrect name.");
     }
 }

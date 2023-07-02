@@ -2,11 +2,15 @@ package com.automation.ui;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.SelenideWait;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.Wait;
 
 public class TestOne extends BaseTest {
 
@@ -21,6 +25,11 @@ public class TestOne extends BaseTest {
         $("h1.fontHeadlineLarge")
                 .shouldBe(Condition.visible, Duration.ofSeconds(30))
                 .shouldHave(Condition.text(TEXT));
-        Selenide.sleep(5000);
+
+        Wait()
+                .ignoring(StaleElementReferenceException.class)
+                .pollingEvery(Duration.ofSeconds(1))
+                .withTimeout(Duration.ofSeconds(30))
+                .until(ExpectedConditions.titleIs("Minsk - Google Maps1"));
     }
 }

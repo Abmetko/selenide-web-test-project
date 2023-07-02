@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" parallel="classes" thread-count="5" verbose="1">
+    <test name="Regression test">
+        <classes>
+            <class name="com.automation.ui.TestOne"/>
+            <class name="com.automation.ui.TestTwo"/>
+        </classes>
+    </test>
+</suite>

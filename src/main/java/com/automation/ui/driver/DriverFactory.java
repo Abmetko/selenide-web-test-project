@@ -1,38 +1,32 @@
 package com.automation.ui.driver;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//mvn clean test -Dbrowser.type=chrome
+
 public class DriverFactory {
 
-    private static final ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
-
-    /*
-    it is not necessary to put and store WebDriver in ThreadLocal,
-    in case if we use Selenide(it is already implemented out of the box there)
-     */
     public static void initDriver() {
-        driver.set(configureDriver());
         //to pass WebDriver to Selenide
-        WebDriverRunner.setWebDriver(driver.get());
+        WebDriverRunner.setWebDriver(configureDriver());
         Configuration.reportsFolder = "target/test-result/reports";
     }
 
     @SneakyThrows
-    public static RemoteWebDriver configureDriver() {
-        RemoteWebDriver remoteWebDriver;
+    public static WebDriver configureDriver() {
+        WebDriver driver;
         HashMap<String, Object> map = new HashMap<>() {{
             put("name", "SELENOID TEST");
             put("sessionTimeout", "15m");
@@ -57,7 +51,7 @@ public class DriverFactory {
                 FirefoxOptions options = new FirefoxOptions();
                 options.setCapability("selenoid:options", map);
                 options.addPreference("intl.accept_languages", "en-EN");
-                remoteWebDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+                driver = new FirefoxDriver(options);
             }
             case "chrome" -> {
                 WebDriverManager.chromedriver().setup();
@@ -72,19 +66,18 @@ public class DriverFactory {
                 options.addArguments("–-no-sandbox");
                 options.addArguments("--incognito");
                 options.addArguments("--start-maximized");
-                remoteWebDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+                driver = new ChromeDriver(options);
             }
             default -> throw new IllegalArgumentException("Unknown browser");
         }
-        return remoteWebDriver;
+        return driver;
     }
 
     public static WebDriver getDriver() {
-        return driver.get();
+        return Selenide.webdriver().driver().getWebDriver();
     }
 
     public static void closeDriver() {
-        driver.get().close();
-        driver.remove();
+        getDriver().close();
     }
 }

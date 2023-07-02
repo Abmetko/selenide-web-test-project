@@ -1,23 +1,21 @@
 package com.automation.ui;
 
 import com.automation.ui.driver.DriverFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseTest {
 
     WebDriver driver;
 
-    @BeforeAll
+    @BeforeClass
     public void setUp() {
         DriverFactory.initDriver();
         driver = DriverFactory.getDriver();
     }
 
-    @AfterAll
+    @AfterClass
     public void tearDown() {
         DriverFactory.closeDriver();
     }
